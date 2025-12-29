@@ -1,0 +1,1011 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #e91e63;
+    --secondary-color: #9c27b0;
+    --accent-color: #ff4081;
+    --background-color: #fce4ec;
+    --text-color: #4a4a4a;
+    --light-text: #666;
+    --card-background: #ffffff;
+    --shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+    --border-radius: 20px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    line-height: 1.6;
+    color: var(--text-color);
+    overflow-x: hidden;
+    background-color: var(--background-color);
+    background-image: url('https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/c25c7a22af0047c58d2d6e33095434e0~tplv-a9rns2rl98-image.image?rcl=202512161342383F0C07436FE419041F28&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768455782&x-signature=RIqPSodYVHBNzmiLQWMnG05vlko%3D');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.page-section {
+    width: 100%;
+    min-height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* 进度指示器 */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* 通用标题样式 */
+.section-header {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--light-text);
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+/* 封面页 */
+#cover {
+    background: linear-gradient(135deg, rgba(255, 192, 203, 0.8) 0%, rgba(221, 160, 221, 0.8) 100%), url('https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/c25c7a22af0047c58d2d6e33095434e0~tplv-a9rns2rl98-image.image?rcl=202512161342383F0C07436FE419041F28&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768455782&x-signature=RIqPSodYVHBNzmiLQWMnG05vlko%3D');
+    background-size: cover;
+    background-position: center;
+}
+
+.cover-content {
+    animation: fadeIn 2s ease-in-out;
+    position: relative;
+    z-index: 2;
+}
+
+.cover-title {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Ma Shan Zheng', cursive;
+}
+
+.cover-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+.cover-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 1.2rem;
+    color: var(--light-text);
+}
+
+.enter-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.3rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+
+.enter-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* 浮动元素 */
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.floating-img {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    opacity: 0.7;
+    animation: float 6s ease-in-out infinite;
+}
+
+.deer {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.cat {
+    top: 20%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.sloth {
+    bottom: 20%;
+    left: 15%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* 时间线页 */
+.timeline-container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-content {
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+.timeline-content p {
+    color: var(--light-text);
+    font-size: 1.1rem;
+}
+
+.timeline-icon {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    transform: translateY(-50%);
+    z-index: 2;
+    box-shadow: var(--shadow);
+}
+
+.timeline-item:nth-child(odd) .timeline-icon {
+    right: -25px;
+}
+
+.timeline-item:nth-child(even) .timeline-icon {
+    left: -25px;
+}
+
+.timeline-image {
+    margin-top: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.timeline-image img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.timeline-image:hover img {
+    transform: scale(1.05);
+}
+
+/* 数据概览页 */
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.data-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.data-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.data-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.data-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.data-card-header h3 {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.data-card-description {
+    color: var(--light-text);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.data-image-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.data-card:hover .data-image-container {
+    transform: scale(1.02);
+}
+
+.data-image {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.5s ease;
+}
+
+/* 回忆精选页 */
+.memories-slider-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.memories-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.memory-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.memory-slide.active {
+    position: relative;
+    opacity: 1;
+}
+
+.memory-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.memory-date {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.chat-bubble {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.message {
+    max-width: 80%;
+    padding: 1.2rem 1.5rem;
+    border-radius: 20px;
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message.you {
+    background-color: #e3f2fd;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message.me {
+    background-color: #fce4ec;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.message.you::before,
+.message.me::before {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.message.you::before {
+    left: -10px;
+    border-width: 10px 10px 0 0;
+    border-color: #e3f2fd transparent transparent transparent;
+}
+
+.message.me::before {
+    right: -10px;
+    border-width: 0 10px 10px 0;
+    border-color: transparent #fce4ec transparent transparent;
+}
+
+.memory-animal {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    opacity: 0.6;
+    animation: float 4s ease-in-out infinite;
+}
+
+.memory-animal img {
+    width: 100%;
+    height: auto;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding: 0 1rem;
+}
+
+.slider-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.slider-button:hover {
+    transform: scale(1.1);
+    background-color: white;
+}
+
+.slider-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.indicator.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* 年度总结页 */
+.summary-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+}
+
+.summary-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.summary-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.summary-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.summary-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1.5rem;
+    color: white;
+    font-size: 2.5rem;
+    box-shadow: var(--shadow);
+}
+
+.summary-card h3 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+.summary-content {
+    font-size: 1.1rem;
+    color: var(--light-text);
+}
+
+.word-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.word {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: rgba(233, 30, 99, 0.1);
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.word:hover {
+    transform: scale(1.1);
+    background-color: rgba(233, 30, 99, 0.2);
+}
+
+.word.large {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.word.medium {
+    font-size: 1.2rem;
+}
+
+.word.small {
+    font-size: 1rem;
+}
+
+.highlight {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.places-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.place {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: rgba(156, 39, 176, 0.1);
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.place:hover {
+    transform: scale(1.1);
+    background-color: rgba(156, 39, 176, 0.2);
+}
+
+.future-wishes {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.future-wishes.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.future-wishes h3 {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    font-family: 'ZCOOL XiaoWei', serif;
+}
+
+.wishes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.wish-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+    background-color: rgba(255, 192, 203, 0.2);
+    transition: var(--transition);
+}
+
+.wish-item:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 192, 203, 0.3);
+}
+
+.wish-item i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.wish-item p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+/* 音乐控制 */
+.music-control {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition);
+}
+
+.music-control:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.music-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: transform 0.2s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.music-button:hover {
+    transform: scale(1.1);
+    background-color: rgba(233, 30, 99, 0.1);
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.music-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.music-progress {
+    width: 150px;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.music-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* 导航按钮 */
+.nav-buttons {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 100;
+    display: flex;
+    gap: 1rem;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.nav-buttons:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button {
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.nav-button:hover {
+    background-color: rgba(233, 30, 99, 0.1);
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* 图片模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .cover-title {
+        font-size: 3rem;
+    }
+
+    .cover-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .cover-stats {
+        gap: 2rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .timeline::before {
+        left: 30px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 2rem;
+        text-align: left;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    .timeline-icon {
+        left: 5px !important;
+        right: auto !important;
+    }
+
+    .data-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .data-card {
+        padding: 1.5rem;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    .summary-container {
+        grid-template-columns: 1fr;
+    }
+
+    .wishes-container {
+        grid-template-columns: 1fr;
+    }
+
+    .music-control {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .music-info {
+        display: none;
+    }
+
+    .nav-buttons {
+        bottom: 1rem;
+        left: 1rem;
+        gap: 0.5rem;
+        padding: 0.25rem;
+    }
+
+    .nav-button {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+}

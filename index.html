@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的恋爱故事 | 年度总结</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #E94057;
+            --secondary-color: #8A2387;
+            --accent-color: #F27121;
+            --background-color: #FFF9F5;
+            --text-color: #333;
+            --light-text: #666;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .data-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .data-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .memory-card {
+            background-color: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .memory-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #f5f5f5;
+        }
+
+        /* 处理有图片叠加文字的卡片 */
+        .memory-card .relative {
+            height: 100%;
+        }
+
+        .memory-card .relative img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 调整文字内容的样式 */
+        .memory-card .p-6 {
+            padding: 2rem;
+        }
+
+        .memory-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .memory-card p.text-gray-500 {
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .memory-card p:last-child {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* 统一纯文字卡片的样式 */
+        .memory-card:not(:has(img)) .p-6 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+
+        .music-button {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .music-status {
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .music-control:hover .music-status {
+            opacity: 1;
+        }
+
+        .music-button:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-indicators {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-indicator {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-indicator.active {
+            background-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 95vw;
+            max-height: 95vh;
+            overflow: auto;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-indicators {
+                left: 1rem;
+            }
+
+            .music-control {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航指示器 -->
+    <div class="nav-indicators">
+        <div class="nav-indicator active" data-section="cover"></div>
+        <div class="nav-indicator" data-section="timeline"></div>
+        <div class="nav-indicator" data-section="data-overview"></div>
+        <div class="nav-indicator" data-section="memories"></div>
+        <div class="nav-indicator" data-section="summary"></div>
+    </div>
+
+    <!-- 封面页 -->
+    <section id="cover" class="section gradient-bg text-white flex items-center justify-center">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">我们的恋爱总结</h1>
+            <p class="text-xl md:text-2xl mb-8">2021 - 2025 年度总结</p>
+            <div class="flex justify-center gap-8 mb-12">
+                <div class="text-center">
+                    <p class="text-4xl font-bold" id="daysCount">0</p>
+                    <p>天</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-bold" id="messagesCount">0</p>
+                    <p>条消息</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-4xl font-bold" id="memoriesCount">0</p>
+                    <p>个回忆</p>
+                </div>
+            </div>
+            <button class="bg-white text-pink-500 px-8 py-3 rounded-full font-bold text-lg hover:bg-pink-100 transition duration-300" onclick="scrollToSection('timeline')">开启回忆之旅</button>
+        </div>
+    </section>
+
+    <!-- 时间线页 -->
+    <section id="timeline" class="section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">爱情时间线</h2>
+                <p class="section-subtitle">我们一起走过的日子</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">故事的起点</h3>
+                    <p class="text-gray-500 mb-2">2021年11月14日</p>
+                    <p>那是你来上海实习，我们一起吃的第一顿饭（飞象俄罗斯餐厅）、喝的第一次酒（Helens），从那之后，一次次的约饭约麻让属于我们的命运齿轮开始悄悄转动。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">第一次组队开黑</h3>
+                    <p class="text-gray-500 mb-2">2021年12月14日 19:43</p>
+                    <p>我们的第一次组队开黑，是从你说用璐璐保我开始的，从此我们开启了一扇新的交流大门，最喜欢的是我们从泉水出门后一起贴着走，尽管不是每一场游戏都胜利，但却是每一场都是超级快乐的下路双人组。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">一起看夕阳</h3>
+                    <p class="text-gray-500 mb-2">2021年12月31日 16:50</p>
+                    <p>在上海去嘉兴跨年的高铁上，我们并排坐在一起，第一次看了夕阳，晚上一起跨了年，一起看了烟花，那一次的旅行我给你提了一路的行李，喜欢一个人的心，虽然嘴上没说出来，但是行动已经悄悄泄露了所有的心意。</p>
+                </div>
+                 <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">一起追恋综</h3>
+                    <p class="text-gray-500 mb-2">2022年2月10日</p>
+                    <p>《半熟恋人》，你带着我追的第一部恋综，我磕大哥大嫂，你磕能能罗拉，磕到最后，发现还是我们自己最好磕、最耐磕、也最甜，那几个月，我们就像半熟的恋人，感情在磕CP中慢慢地升温。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">确定关系</h3>
+                    <p class="text-gray-500 mb-2">2022年3月5日</p>
+                    <p></p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">第一次牵手</h3>
+                    <p class="text-gray-500 mb-2">2022年6月12日</p>
+                    <p>熬过了疫情阻隔的3个月，在一起后的第99天，我们终于奔现见面了，在送你回家的路上，我们第一次牵起了小手，我还记得第一次牵手，我们的动作都不是很协调，甚至略显僵硬，但是你说，牵起了我的手让你觉得很心安。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">第一次亲吻</h3>
+                    <p class="text-gray-500 mb-2">2022年6月18日</p>
+                    <p>在红馆KTV，你问我不想亲亲你吗？于是我们有了第一次亲亲，也是带有糖果味的亲亲，第一次总是最难忘记的，尽管之后我们有过无数次亲吻，但那瞬间的心动和糖果的甜意，永远留在我的心里。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">第一次睡觉觉</h3>
+                    <p class="text-gray-500 mb-2">2022年8月6日</p>
+                    <p>赶在你正式工作之前，你跨越千里来上海看我，在我租的第一个小房间里，不大的空间因为你的到来变得格外温馨。那晚我们第一次一起躺在床上相互抱着——原来幸福可以这么简单，只是和喜欢的人一起躺着，感受彼此的存在，就已经足够幸福了。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">第一次旅游</h3>
+                    <p class="text-gray-500 mb-2">2023年4月28日</p>
+                    <p>在一起之后的第一次旅游是我们的福州-南日岛-泉州行，在福州，我们手牵手悠闲穿梭于三坊七巷的青石板路，感受古城的烟火气息；在南日岛，我们一起看日出日落，吹着海风漫步沙滩，享受面向大海的自由与浪漫；在泉州，我们在西街与开元寺看千年古桑与东西佛塔，在清净寺、关岳庙、天后宫感受多元信仰的包容，还有面线糊和姜母鸭，每一口都藏着泉州最地道的闽南美味。那次旅程的每一个瞬间都充满了新鲜感与幸福感，也为我们的爱情开启了全新的篇章。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 class="text-2xl font-bold mb-2">第一次见家长</h3>
+                    <p class="text-gray-500 mb-2">2024年2月11日 & 2024年10月3日</p>
+                    <p>2024年的两次见家长，是我们爱情里又一个重大的里程碑。从最初的忐忑，到被彼此家人温柔接纳，我们的爱情不再只是两人的小世界，而是成为了两个家庭的温暖联结，这份爱也因此有了更深厚的根基和更广阔的未来。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据概览页 -->
+    <section id="data-overview" class="section bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">爱情数据</h2>
+                <p class="section-subtitle">过去的 1469 天里，我们共发送了 226122 条消息，平均每天发送 154 条消息，也就是每 9 分钟就会想起对方一次。总字数 1620881 字，平均消息长度为 7.2 字。其中小黄发送了 103386 条消息（占比45.7%），小张发送了 122736 条消息（占比54.3%）。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <div class="data-card" onclick="openModal('img2/2_hoursly_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">小时消息分布</h3>
+                    <p class="text-gray-600 mb-4">从0点到23点的24个小时里，每个小时都留下了我们聊天的印迹。其中深夜22-24点是我们一天中聊天最多的时间段，这是属于我们分享一天收获与疲惫的「悄悄话时间」，午间12-13点，则是我们的「午休陪伴时间」，无论多忙，工作间隙也要留出时间分享生活的点滴。</p>
+                    <img src="img2/2_hoursly_distribution.png" alt="24小时消息分布" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/3_weekly_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">每周消息分布</h3>
+                    <p class="text-gray-600 mb-4">我们一周之中周几聊天最活跃呢？答案是周六和周日，工作日的忙碌让周末成为我们专属的「情感充电时间」，平常上班各忙各的，只能抽空断断续续地聊，但是到了周末，我们有更多的时间来好好聊天，让细水长留的分享成为周末最暖心的陪伴。</p>
+                    <img src="img2/3_weekly_distribution.png" alt="每周消息分布" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/11_monthly_message_trend.png')">
+                    <h3 class="text-xl font-bold mb-4">每月消息趋势</h3>
+                    <p class="text-gray-600 mb-4">这条紫色的曲线，是我们爱情的「心跳记录」，2022年的上半年，我们月均发送10000条以上的消息，3月是我们在一起的第一个月，消息发送高达14761条，这段高峰见证着我们从相知到相恋的热烈，每天有说不完的话，分享不完的生活，即使后来曲线渐趋平缓，但依然跳动着我们相爱的脉搏，从热烈到绵长，始终幸福。</p>
+                    <img src="img2/11_monthly_message_trend.png" alt="每月消息趋势" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/14_daily_trend.png')">
+                    <h3 class="text-xl font-bold mb-4">每日消息趋势</h3>
+                    <p class="text-gray-600 mb-4">这些上下跃动的曲线，是我们每天的「碎碎念进度条」。2022年的4月23日，是我们历史上聊天记录最多的一天，共计发了1428条消息，相当于平均每分钟就会发一条消息，那么这天我们都在聊些什么呢？这一天，我们凌晨1点半才结束聊天，然后从早上9点15分一直聊到晚上23点56分，基本没间断，从我的疫情宅校日常到《人民的名义》剧情，然后是一起看LOL春季赛决赛，赛情讨论贡献了我们这一天的大部分消息。</p>
+                    <img src="img2/14_daily_trend.png" alt="每天消息分布" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/12_emotion_timeline.png')">
+                    <h3 class="text-xl font-bold mb-4">甜蜜消息时间线</h3>
+                    <p class="text-gray-600 mb-4">这满屏密密麻麻的粉红圆点，是我们每天藏在对话里的「甜蜜标记」，在1469天里，我们有1383天都发了甜蜜消息，占比94%，其中2023年7月22日是我们的「最甜日」，这一天我们共发送了155条甜蜜消息。猜猜我们的第一次甜蜜消息是在什么时候？是在2021年12月28日1点36分互道的晚安。</p>
+                    <img src="img2/12_emotion_timeline.png" alt="情感时间线" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/10_response_time_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">回复时间分布</h3>
+                    <p class="text-gray-600 mb-4">和小张的聊天总是能得到最快速的回应，在我们的聊天里，59.4%的消息都能在1分钟内得到彼此的回应，平均135.2秒的等待背后，是“看见消息就想立刻回你”的小确幸，是“你在我这里，永远是P0”的最高优先级。</p>
+                    <img src="img2/10_response_time_distribution.png" alt="回复时间分布" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/9_message_length_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">消息长度分布</h3>
+                    <p class="text-gray-600 mb-4"></p>
+                    <!-- <img src="img2/9_message_length_distribution_1.png" alt="消息对比" class="w-full h-50 object-cover rounded-lg"> -->
+                    <img src="img2/9_message_length_distribution_2.png" alt="消息对比" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/4_message_type_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">消息类型分布</h3>
+                    <p class="text-gray-600 mb-4">除了文字内容的消息，链接、图片、表情、语音、视频也是我们聊天的重要组成部份，从消息类型雷达图来看，小黄更喜欢分享链接，小张更喜欢分享图片，而在表情的分享上，我们不相上下，这些不同形式的消息，共同编织成了我们最珍贵的回忆。</p>
+                    <img src="img2/4_message_type_distribution.png" alt="消息类型分布" class="w-full h-50 object-cover rounded-lg">
+                    <!-- <img src="img2/4_message_type_distribution_2.png" alt="消息类型分布" class="w-full h-50 object-cover rounded-lg"> -->
+                </div>
+                <div class="text-center col-span-full">
+                    <p class="section-subtitle my-4">过去的1469天里，我们有视频通话的天数是890天，占比60.5%，一共打了3891次视频/语音，其中小黄发起了1369次，小张发起了2522次，最长连续通话天数是37天。异地的时间里，视频通话就像一根无形的线，把分隔两地的我们紧紧连在一起，让彼此的生活从未真正缺席。</p>
+                </div>
+                <div class="data-card" onclick="openModal('img2/13_call_hourly_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">小时视频分布</h3>
+                    <p class="text-gray-600 mb-4">和聊天一样，我们总喜欢在晚上打视频，最常视频通话的时间段是晚上18点到23点，总计1419次（占比36.5%），其次是深夜23点至6点，总计1009次（占比25.9%），见不了面的日子里，这些屏幕里的陪伴就成了我们最珍贵的温暖。</p>
+                    <img src="img2/13_call_hourly_distribution.png" alt="24小时视频分布" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/14_call_weekday_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">每周视频分布</h3>
+                    <p class="text-gray-600 mb-4">不同于聊天消息的均匀分布，视频通话的分布则是在周六与周日出现了显著的峰值，几乎是工作日视频次数的两倍，总计1860次，周末以28.6%的时间占据了我们47.8%的视频通话，数字反差里，是周末时光里双倍浓甜的「专属视频陪伴」。</p>
+                    <img src="img2/14_call_weekday_distribution.png" alt="每周视频分布" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/15_call_monthly_trend.png')">
+                    <h3 class="text-xl font-bold mb-4">每月视频趋势</h3>
+                    <p class="text-gray-600 mb-4">我们最早开始视频通话的时间是在2022年2月（5次），视频通话次数最多的月份是在2023年9月（230次），从最初的零星连线到后来每天都要打视频，这些数字的变化记录着我们走向亲密的每一步。让异地的日子也充满了温暖的陪伴。</p>
+                    <img src="img2/15_call_monthly_trend.png" alt="每月视频趋势" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/16_call_daily_trend.png')">
+                    <h3 class="text-xl font-bold mb-4">每日视频趋势</h3>
+                    <p class="text-gray-600 mb-4">3891次视频通话绘就了这条「异地陪伴曲线」，屏幕两端的晨昏与四季，都被揉进了这或高或低的连线里，起伏间，全是隔着距离的相守。那些密集的点，是我们共同走过的时光，而其中连成的线，是我们从未间断的思念。</p>
+                    <img src="img2/16_call_daily_trend.png" alt="每日视频趋势" class="w-full h-50 object-cover rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img2/1_reli2.png')">
+                    <h3 class="text-xl font-bold mb-4">消息热力图</h3>
+                    <p class="text-gray-600 mb-4">从2022到2025，四年的时光在这张热力图上变成了密密麻麻的绿色方块。在过去的四年里，我们没有聊天消息的日子只有4天，分别是2023年的4月29、30日，2024年的1月26日，6月8日，这几天里，我们都相互陪伴在彼此身边，陪伴是最长情的告白，我要感谢你四年如一日的全勤陪伴，让每一天都铺着温柔的诗行，让每一刻都浸着相爱的模样。</p>
+                    <img src="img2/1_reli2.png" alt="消息日历热力图" class="w-full aspect-square object-contain rounded-lg">
+                </div>
+                <div class="data-card" onclick="openModal('img/wordcloud.png')">
+                    <h3 class="text-xl font-bold mb-4">爱情关键词词云</h3>
+                    <p class="text-gray-600 mb-4">这是我用我们的聊天关键词为你画的一颗爱心，“猪猪”“宝贝” 是我们挂在嘴边的昵称，“回家”“吃饭” 是日常的温柔，所有这些细碎的词语都被时光编织成了心的形状，每一个字都藏着我们一起走过的晨昏，每一个词都泛着相爱的温度，就像我们的爱情，平凡却又满是星光。</p>
+                    <img src="img/wordcloud.png" alt="爱情关键词词云" class="w-full aspect-square object-contain rounded-lg">
+                </div>
+                <!-- <div class="data-card" onclick="openModal('img2/4_message_type_distribution.png')">
+                    <h3 class="text-xl font-bold mb-4">消息类型分布</h3>
+                    <p class="text-gray-600 mb-4">真好。</p>
+                    <img src="img2/4_message_type_distribution.png" alt="消息类型分布" class="w-full aspect-square object-contain rounded-lg">
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 回忆精选页 -->
+    <section id="memories" class="section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">甜蜜回忆</h2>
+                <p class="section-subtitle">那些让我们心动的瞬间</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="memory-card">
+                    <img src="img3/fig2.png" alt="回忆1" onclick="openModal('img3/fig2.png')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig3.jpg" alt="回忆2" onclick="openModal('img3/fig3.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig4.jpg" alt="回忆3" onclick="openModal('img3/fig4.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig5.jpg" alt="回忆4" onclick="openModal('img3/fig5.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig6.jpg" alt="回忆5" onclick="openModal('img3/fig6.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig7.jpg" alt="回忆6" onclick="openModal('img3/fig7.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig8.jpg" alt="回忆7" onclick="openModal('img3/fig8.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig9.jpg" alt="回忆8" onclick="openModal('img3/fig9.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig10.jpg" alt="回忆9" onclick="openModal('img3/fig10.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig11.jpg" alt="回忆10" onclick="openModal('img3/fig11.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig12.jpg" alt="回忆11" onclick="openModal('img3/fig12.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig13.jpg" alt="回忆12" onclick="openModal('img3/fig13.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig14.jpg" alt="回忆13" onclick="openModal('img3/fig14.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig15.jpg" alt="回忆14" onclick="openModal('img3/fig15.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig16.jpg" alt="回忆15" onclick="openModal('img3/fig16.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig17.jpg" alt="回忆16" onclick="openModal('img3/fig17.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig18.jpg" alt="回忆17" onclick="openModal('img3/fig18.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig19.jpg" alt="回忆18" onclick="openModal('img3/fig19.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig20.jpg" alt="回忆19" onclick="openModal('img3/fig20.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig21.jpg" alt="回忆20" onclick="openModal('img3/fig21.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig22.jpg" alt="回忆21" onclick="openModal('img3/fig22.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig23.jpg" alt="回忆22" onclick="openModal('img3/fig23.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig24.jpg" alt="回忆23" onclick="openModal('img3/fig24.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig25.jpg" alt="回忆24" onclick="openModal('img3/fig25.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig26.jpg" alt="回忆25" onclick="openModal('img3/fig26.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig27.jpg" alt="回忆26" onclick="openModal('img3/fig27.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig28.jpg" alt="回忆27" onclick="openModal('img3/fig28.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig29.jpg" alt="回忆28" onclick="openModal('img3/fig29.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig30.jpg" alt="回忆29" onclick="openModal('img3/fig30.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig31.jpg" alt="回忆30" onclick="openModal('img3/fig31.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig32.jpg" alt="回忆31" onclick="openModal('img3/fig32.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig33.jpg" alt="回忆32" onclick="openModal('img3/fig33.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig34.jpg" alt="回忆33" onclick="openModal('img3/fig34.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig35.jpg" alt="回忆34" onclick="openModal('img3/fig35.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig36.jpg" alt="回忆35" onclick="openModal('img3/fig36.jpg')">
+                </div>
+                <div class="memory-card">
+                    <img src="img3/fig37.jpg" alt="回忆36" onclick="openModal('img3/fig37.jpg')">
+                </div>
+                <!-- <div class="memory-card">
+                    <div class="p-6 flex flex-col justify-center items-center text-center h-full bg-gradient-to-br from-pink-50 to-red-50">
+                        <h3 class="text-xl font-bold mb-2 text-pink-600">甜蜜对话</h3>
+                        <p class="text-gray-500 mb-4">2021年7月7日</p>
+                        <div class="bg-white p-4 rounded-lg mb-4 shadow-sm w-full">
+                            <p class="text-right mb-2 text-blue-500">我喜欢你，从第一次见到你的时候就喜欢上了，愿意做我的女朋友吗？</p>
+                            <p class="text-left text-pink-500">我也喜欢你，其实我一直在等你说这句话，我愿意！❤️</p>
+                        </div>
+                        <p class="text-gray-600 text-sm">这是我们确定关系那天的对话，现在读起来，依然会心跳加速。</p>
+                    </div>
+                </div>
+                <div class="memory-card">
+                    <div class="relative h-full">
+                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/c25c7a22af0047c58d2d6e33095434e0~tplv-a9rns2rl98-image.image?rcl=202512161342383F0C07436FE419041F28&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768455782&x-signature=RIqPSodYVHBNzmiLQWMnG05vlko%3D" alt="海边之旅" onclick="openModal('https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/c25c7a22af0047c58d2d6e33095434e0~tplv-a9rns2rl98-image.image?rcl=202512161342383F0C07436FE419041F28&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768455782&x-signature=RIqPSodYVHBNzmiLQWMnG05vlko%3D')">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent text-white p-4">
+                            <h3 class="text-xl font-bold mb-1">海边之旅</h3>
+                            <p class="text-sm opacity-90">2021年10月1日</p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 年度总结页 -->
+    <section id="summary" class="section gradient-bg text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">年度总结</h2>
+                <p class="text-xl mb-8">我们的爱情成长报告</p>
+            </div>
+            <div class="max-w-4xl mx-auto bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="text-center">
+                        <i class="fas fa-heart text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">小黄最常说的话</h3>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">猪猪：9674次</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">宝贝</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">我们</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">哈哈</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">贝贝比</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">吃饭</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">小老婆</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">睡觉</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-heart text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">小张最常说的话</h3>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">猪猪：9674次</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">宝贝</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">我们</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">哈哈</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">贝贝比</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">吃饭</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">小老婆</span>
+                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">睡觉</span>
+                        </div>
+                    </div>
+                    <!-- <div class="text-center">
+                        <i class="fas fa-clock text-4xl mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">最活跃的时间</h3>
+                        <p class="mb-2">我们在<span class="font-bold">晚上10点</span>最活跃</p>
+                        <p>平均每天聊天<span class="font-bold">3小时25分钟</span></p>
+                    </div> -->
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-star text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-4">未来的愿望</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <p>一起去看更多的风景</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <p>创造更多美好的回忆</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <p>相互扶持，共同成长</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                            <p>永远保持这份爱</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <p class="text-xl italic">"从相遇的那一刻起，我就知道，你是我想要共度一生的人。"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 音乐控制 -->
+    <div class="music-control">
+        <button class="music-button" id="musicToggle">
+            <i class="fas fa-play"></i>
+        </button>
+        <div id="musicStatus" class="music-status">点击播放音乐</div>
+        <!-- 音量控制 -->
+        <div class="volume-control" style="position: absolute; bottom: -4rem; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); padding: 0.5rem; border-radius: 0.5rem; opacity: 0; transition: opacity 0.3s ease;">
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.3" onchange="changeVolume(this.value)">
+            <span style="color: white; font-size: 0.75rem; margin-left: 0.5rem;">音量</span>
+        </div>
+    </div>
+    
+    <!-- 调试信息 -->
+    <div id="audioDebugInfo" style="position: fixed; top: 1rem; right: 1rem; background: rgba(0,0,0,0.7); color: white; padding: 0.5rem; border-radius: 0.5rem; font-size: 0.75rem; z-index: 1000; display: none;"></div>
+
+    <!-- 图片模态框 -->
+    <div class="modal" id="imageModal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="放大图片">
+        </div>
+    </div>
+
+    <!-- 音频元素通过JavaScript动态创建 -->
+
+    <script>
+        // 创建一个全局的音频实例
+        let backgroundMusic = new Audio();
+        backgroundMusic.volume = 0.3;
+        backgroundMusic.loop = true; // 设置循环播放
+        
+        // 使用显式的相对路径
+        const audioPath = './61108108_sad-to-uplifting.mp3';
+        backgroundMusic.src = audioPath;
+        
+        console.log('音频文件路径:', backgroundMusic.src);
+        console.log('音频对象已创建:', backgroundMusic);
+        
+        // 尝试预加载音频
+        backgroundMusic.load();
+        console.log('尝试预加载音频...');
+        
+        // 监听音频加载事件
+        backgroundMusic.addEventListener('canplaythrough', function() {
+            console.log('音频加载完成，可以播放了');
+            console.log('音频持续时间:', this.duration);
+            console.log('音频就绪状态:', this.readyState);
+        });
+        
+        // 监听音频错误事件
+        backgroundMusic.addEventListener('error', function() {
+            console.error('音频加载错误');
+            console.error('错误代码:', this.error.code);
+            console.error('错误消息:', this.error.message);
+            
+            // 根据错误代码提供更具体的信息
+            let errorMsg = '音频加载失败';
+            switch(this.error.code) {
+                case 1: errorMsg += '：用户中止加载'; break;
+                case 2: errorMsg += '：网络错误'; break;
+                case 3: errorMsg += '：解码错误'; break;
+                case 4: errorMsg += '：格式不支持'; break;
+                case 5: errorMsg += '：其他错误'; break;
+            }
+            console.error(errorMsg);
+        });
+        
+        // 监听音频元数据加载事件
+        backgroundMusic.addEventListener('loadedmetadata', function() {
+            console.log('音频元数据加载完成');
+            console.log('音频持续时间:', this.duration);
+            console.log('音频长度:', this.duration);
+        });
+        
+        // 监听音频播放事件
+        backgroundMusic.addEventListener('play', function() {
+            console.log('音频开始播放');
+            // 显式设置音量，确保不是静音
+            this.volume = 0.3;
+            this.muted = false;
+            console.log('当前音量:', this.volume);
+            console.log('是否静音:', this.muted);
+        });
+        
+        // 监听音频暂停事件
+        backgroundMusic.addEventListener('pause', function() {
+            console.log('音频已暂停');
+        });
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化数据
+            animateCounter('daysCount', 1469);
+            animateCounter('messagesCount', 226122);
+            animateCounter('memoriesCount', 127);
+
+            // 监听滚动事件
+            window.addEventListener('scroll', updateNavIndicators);
+
+            // 为导航指示器添加点击事件
+            document.querySelectorAll('.nav-indicator').forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    scrollToSection(sectionId);
+                });
+            });
+
+            // 为关闭模态框按钮添加点击事件
+            document.querySelector('.close-modal').addEventListener('click', closeModal);
+
+            // 点击模态框背景关闭模态框
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            // 为音乐按钮添加点击事件
+            document.getElementById('musicToggle').addEventListener('click', toggleMusic);
+            
+            // 为音乐控制添加鼠标悬停效果，显示音量控制
+            const musicControl = document.querySelector('.music-control');
+            const volumeControl = document.querySelector('.volume-control');
+            
+            musicControl.addEventListener('mouseenter', function() {
+                volumeControl.style.opacity = '1';
+            });
+            
+            musicControl.addEventListener('mouseleave', function() {
+                volumeControl.style.opacity = '0';
+            });
+            
+            // 启用调试信息显示（开发阶段）
+            setTimeout(() => {
+                showDebugInfo();
+            }, 1000);
+        });
+        
+        // 音量控制函数
+        function changeVolume(value) {
+            if (backgroundMusic) {
+                backgroundMusic.volume = parseFloat(value);
+                console.log('音量已调整为:', backgroundMusic.volume);
+                // updateDebugInfo();
+            }
+        }
+        
+        // 显示调试信息
+        function showDebugInfo() {
+            const debugDiv = document.getElementById('audioDebugInfo');
+            debugDiv.style.display = 'block';
+            // updateDebugInfo();
+        }
+        
+        // 更新调试信息
+        // function updateDebugInfo() {
+        //     const debugDiv = document.getElementById('audioDebugInfo');
+        //     if (debugDiv && backgroundMusic) {
+        //         debugDiv.innerHTML = `
+        //             <strong>音频调试信息:</strong><br>
+        //             文件路径: ${backgroundMusic.src}<br>
+        //             播放状态: ${backgroundMusic.paused ? '暂停' : '播放中'}<br>
+        //             当前音量: ${(backgroundMusic.volume * 100).toFixed(0)}%<br>
+        //             是否静音: ${backgroundMusic.muted}<br>
+        //             持续时间: ${backgroundMusic.duration ? backgroundMusic.duration.toFixed(2) : '未知'}s<br>
+        //             当前位置: ${backgroundMusic.currentTime.toFixed(2)}s<br>
+        //             就绪状态: ${backgroundMusic.readyState}<br>
+        //             错误: ${backgroundMusic.error ? backgroundMusic.error.message : '无'}
+        //         `;
+        //     }
+        // }
+        
+        // 定期更新调试信息
+        // setInterval(updateDebugInfo, 1000);
+
+        // 滚动到指定部分
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 更新导航指示器
+        function updateNavIndicators() {
+            const sections = document.querySelectorAll('.section');
+            const indicators = document.querySelectorAll('.nav-indicator');
+
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+                if (indicator.getAttribute('data-section') === currentSection) {
+                    indicator.classList.add('active');
+                }
+            });
+        }
+
+        // 数字动画
+        function animateCounter(elementId, targetValue) {
+            const element = document.getElementById(elementId);
+            let currentValue = 0;
+            const increment = targetValue / 50;
+            const duration = 2000;
+            const interval = duration / 50;
+
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= targetValue) {
+                    currentValue = targetValue;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(currentValue);
+            }, interval);
+        }
+
+        // 添加一个标志来防止快速点击导致的播放/暂停冲突
+        let isPlaying = false;
+        let playPromise = null;
+        
+        // 切换音乐播放/暂停
+        function toggleMusic() {
+            const musicButton = document.getElementById('musicToggle');
+            const icon = musicButton.querySelector('i');
+            const statusText = document.getElementById('musicStatus');
+
+            statusText.textContent = '正在处理...';
+            console.log('按钮被点击了！');
+            
+            // 检查是否有正在进行的播放操作
+            if (playPromise) {
+                console.log('已有播放操作正在进行，忽略当前点击');
+                return;
+            }
+
+            try {
+                // 检查音乐是否正在播放
+                if (backgroundMusic.paused) {
+                    console.log('尝试播放音频...');
+                    statusText.textContent = '正在加载音乐...';
+                    
+                    // 标记为正在播放状态
+                    isPlaying = true;
+                    
+                    // 直接播放，避免重复load导致的中断
+                    playPromise = backgroundMusic.play();
+                    
+                    playPromise.then(() => {
+                        console.log('音乐播放成功！');
+                        console.log('当前音量:', backgroundMusic.volume);
+                        console.log('是否静音:', backgroundMusic.muted);
+                        console.log('播放状态:', backgroundMusic.paused ? '暂停' : '播放中');
+                        console.log('音频持续时间:', backgroundMusic.duration);
+                        console.log('当前播放位置:', backgroundMusic.currentTime);
+                        console.log('音频就绪状态:', backgroundMusic.readyState);
+                        
+                        statusText.textContent = '音乐播放中...';
+                        icon.classList.remove('fa-play');
+                        icon.classList.add('fa-pause');
+                    }).catch(error => {
+                        console.error('播放失败:', error);
+                        console.error('错误名称:', error.name);
+                        console.error('错误消息:', error.message);
+                        statusText.textContent = '播放失败';
+                        
+                        // 提供更友好的错误提示
+                        let errorMsg = '无法播放音乐';
+                        if (error.name === 'NotAllowedError') {
+                            errorMsg += '：浏览器禁止自动播放，请尝试再次点击播放按钮';
+                        } else if (error.name === 'NetworkError') {
+                            errorMsg += '：网络错误，请检查文件路径或网络连接';
+                        } else if (error.name === 'AbortError') {
+                            errorMsg += '：播放被中止，请重试';
+                        } else if (error.name === 'NotSupportedError') {
+                            errorMsg += '：音频格式不支持';
+                        }
+                        
+                        console.error(errorMsg + ':', error);
+                        alert(errorMsg);
+                    }).finally(() => {
+                        // 清除播放操作标志
+                        playPromise = null;
+                    });
+                } else {
+                    // 如果音乐正在播放，则暂停
+                    console.log('暂停音频播放');
+                    backgroundMusic.pause();
+                    statusText.textContent = '音乐已暂停';
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                    isPlaying = false;
+                }
+            } catch (error) {
+                console.error('函数执行出错:', error);
+                statusText.textContent = '出错: ' + error.message;
+                alert('播放功能出错，请刷新页面重试');
+                // 清除播放操作标志
+                playPromise = null;
+            }
+        }
+
+        // 打开图片模态框
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+
+            modalImage.src = imageSrc;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭图片模态框
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
