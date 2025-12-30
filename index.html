@@ -271,6 +271,100 @@
                 right: 1rem;
             }
         }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-main {
+            color: #fff;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .heart-main:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartRain {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            animation: heartRain 3s ease-in-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
@@ -310,7 +404,7 @@
     <section id="timeline" class="section">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="section-title">爱情时间线</h2>
+                <h2 class="section-title">我们的爱情时间线</h2>
                 <p class="section-subtitle">我们一起走过的日子</p>
             </div>
             <div class="max-w-3xl mx-auto">
@@ -382,7 +476,7 @@
     <section id="data-overview" class="section bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="section-title">爱情数据</h2>
+                <h2 class="section-title">我们的聊天数据</h2>
                 <p class="section-subtitle">过去的 1469 天里，我们共发送了 226122 条消息，平均每天发送 154 条消息，也就是每 9 分钟就会想起对方一次。总字数 1620881 字，平均消息长度为 7.2 字。其中小黄发送了 103386 条消息（占比45.7%），小张发送了 122736 条消息（占比54.3%）。</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -416,10 +510,9 @@
                     <p class="text-gray-600 mb-4">和小张的聊天总是能得到最快速的回应，在我们的聊天里，59.4%的消息都能在1分钟内得到彼此的回应，平均135.2秒的等待背后，是“看见消息就想立刻回你”的小确幸，是“你在我这里，永远是P0”的最高优先级。</p>
                     <img src="img2/10_response_time_distribution.png" alt="回复时间分布" class="w-full h-50 object-cover rounded-lg">
                 </div>
-                <div class="data-card" onclick="openModal('img2/9_message_length_distribution.png')">
+                <div class="data-card" onclick="openModal('img2/9_message_length_distribution_2.png')">
                     <h3 class="text-xl font-bold mb-4">消息长度分布</h3>
-                    <p class="text-gray-600 mb-4"></p>
-                    <!-- <img src="img2/9_message_length_distribution_1.png" alt="消息对比" class="w-full h-50 object-cover rounded-lg"> -->
+                    <p class="text-gray-600 mb-4">在消息长度分布上，我们聊天消息的平均长度是7.2字，小张更爱发短消息，平均6.8字，而小黄则更爱发长消息，平均7.6字。最长的消息则是由小黄发出的164字的消息，但是消息不管长短，都记录着我们相伴的岁月，承载着我们对彼此的珍视。</p>
                     <img src="img2/9_message_length_distribution_2.png" alt="消息对比" class="w-full h-50 object-cover rounded-lg">
                 </div>
                 <div class="data-card" onclick="openModal('img2/4_message_type_distribution.png')">
@@ -451,15 +544,15 @@
                     <p class="text-gray-600 mb-4">3891次视频通话绘就了这条「异地陪伴曲线」，屏幕两端的晨昏与四季，都被揉进了这或高或低的连线里，起伏间，全是隔着距离的相守。那些密集的点，是我们共同走过的时光，而其中连成的线，是我们从未间断的思念。</p>
                     <img src="img2/16_call_daily_trend.png" alt="每日视频趋势" class="w-full h-50 object-cover rounded-lg">
                 </div>
-                <div class="data-card" onclick="openModal('img2/1_reli2.png')">
+                <div class="data-card" onclick="openModal('img2/1_reli.png')">
                     <h3 class="text-xl font-bold mb-4">消息热力图</h3>
                     <p class="text-gray-600 mb-4">从2022到2025，四年的时光在这张热力图上变成了密密麻麻的绿色方块。在过去的四年里，我们没有聊天消息的日子只有4天，分别是2023年的4月29、30日，2024年的1月26日，6月8日，这几天里，我们都相互陪伴在彼此身边，陪伴是最长情的告白，我要感谢你四年如一日的全勤陪伴，让每一天都铺着温柔的诗行，让每一刻都浸着相爱的模样。</p>
-                    <img src="img2/1_reli2.png" alt="消息日历热力图" class="w-full aspect-square object-contain rounded-lg">
+                    <img src="img2/1_reli.png" alt="消息日历热力图" class="w-full aspect-square object-contain rounded-lg">
                 </div>
-                <div class="data-card" onclick="openModal('img/wordcloud.png')">
+                <div class="data-card" onclick="openModal('img2/8_wordcloud_2.png')">
                     <h3 class="text-xl font-bold mb-4">爱情关键词词云</h3>
                     <p class="text-gray-600 mb-4">这是我用我们的聊天关键词为你画的一颗爱心，“猪猪”“宝贝” 是我们挂在嘴边的昵称，“回家”“吃饭” 是日常的温柔，所有这些细碎的词语都被时光编织成了心的形状，每一个字都藏着我们一起走过的晨昏，每一个词都泛着相爱的温度，就像我们的爱情，平凡却又满是星光。</p>
-                    <img src="img/wordcloud.png" alt="爱情关键词词云" class="w-full aspect-square object-contain rounded-lg">
+                    <img src="img2/8_wordcloud_2.png" alt="爱情关键词词云" class="w-full aspect-square object-contain rounded-lg">
                 </div>
                 <!-- <div class="data-card" onclick="openModal('img2/4_message_type_distribution.png')">
                     <h3 class="text-xl font-bold mb-4">消息类型分布</h3>
@@ -470,12 +563,357 @@
         </div>
     </section>
 
+    <!-- 方案一: 对比式卡片布局 -->
+    <section id="frequent-words-1" class="section">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">我们最常说的话</h2>
+                <p class="section-subtitle">每一句话都承载着我们的日常 💬</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-pink-100 to-pink-200 rounded-2xl p-6 shadow-lg">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-heart text-4xl text-pink-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-pink-700">小黄最常说的话</h3>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪猪：9884次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">宝贝：7043次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">可以：3803次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">旺柴：2971次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">现在：2087次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这个：1887次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈哈：1828次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">小老婆：1798次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">今天：1763次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">我们：1686次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">干嘛：1514次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">什么：1498次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">吃饭：1347次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">就是：1250次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">怎么：1151次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">捂脸：1026次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">还是：1007次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">不是：998次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">刚刚：979次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一下：924次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">应该：903次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这么：885次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">已经：868次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">回家：865次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈：853次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪的猪猪：842次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">明天：822次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">那个：783次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">okkk：781次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">感觉：766次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">知道：747次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">回去：714次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">晚上：711次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">还有：696次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">时候：689次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">看看：641次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">晚安：641次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一起：600次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">的话：599次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">不过：599次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈哈哈：589次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪猪猪：581次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">确实：577次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">之前：576次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">出门：568次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">好像：561次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">公司：553次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">回来：547次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哪里：525次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">不错：513次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">可能：502次</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-heart text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-purple-700">共同高频词</h3>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪猪：15650次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">宝贝：9755次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">我们：4461次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">可以：5989次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">今天：4001次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这个：4037次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">什么：3547次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈哈：3859次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">现在：3442次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">吃饭：2405次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">就是：3701次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">知道：1755次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">还是：1990次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">怎么：2124次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">已经：1828次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">那个：1721次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一下：1829次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">还有：1600次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">回家：1697次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">明天：1622次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">感觉：1837次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">时候：1796次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">看看：1192次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">晚安：1340次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一起：1385次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">旺柴：3610次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪的猪猪：1535次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪猪猪：1324次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈哈哈：1289次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">好吃：1143次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">睡觉：987次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">喜欢：1133次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">应该：1438次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">看到：955次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这么：1560次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">所以：1068次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哪里：1238次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">学校：1083次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">回来：1030次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">有点：933次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">出来：734次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这里：712次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">马上：751次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">两个：734次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一点：716次</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-6 shadow-lg">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-heart text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-blue-700">小张最常说的话</h3>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪猪：5766次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">贝贝比：2869次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">我们：2775次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">宝贝：2712次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">就是：2451次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈：2349次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">今天：2238次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">可以：2186次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这个：2150次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">什么：2049次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈哈：2031次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">小老公：1522次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">现在：1355次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">时候：1107次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">然后：1105次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">真的：1075次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">感觉：1071次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">不是：1064次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">吃饭：1058次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">知道：1008次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">还是：983次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">怎么：973次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">已经：960次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">那个：938次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一下：905次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">还有：904次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">觉得：885次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">回家：832次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">喜欢：816次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">明天：800次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">老公：797次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">一起：785次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">自己：761次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪猪猪：743次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哪里：713次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">哈哈哈哈：700次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">晚安：699次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪的猪猪：693次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">好吃：684次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">这么：675次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">所以：661次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">旺柴：639次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">有点：604次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">学校：591次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">猪老公：571次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">睡觉：569次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">看看：551次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">爱你：545次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">妈妈：538次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">应该：535次</span>
+                        <span class="bg-white bg-opacity-80 px-3 py-1.5 rounded-full text-sm shadow-sm hover:shadow-md transition-shadow">看到：527次</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 爱情词汇页 -->
+    <section id="love-words" class="section bg-gradient-to-br from-pink-50 to-purple-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title">我们的爱情专属词汇</h2>
+                <p class="section-subtitle">这些词记录了我们的爱情轨迹 💕</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">我们</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">4468次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2021年11月24日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">猪猪</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">18781次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年02月08日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">宝贝</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">9801次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年01月12日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">老公</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">3140次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年03月23日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">老婆</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">2842次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年01月08日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小张</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">晚安</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">1342次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2021年12月28日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">想你</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">947次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年01月16日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小张</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">爱你</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">860次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年01月13日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">早安</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">156次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年01月10日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">宝宝</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">126次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年01月06日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">爱你哦</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">55次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年03月22日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小张</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">想你了</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">70次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年03月05日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小张</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">么么哒</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">28次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年02月10日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">我爱你</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">17次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年06月26日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小张</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold text-pink-600 mb-2">亲爱的</h3>
+                        <p class="text-4xl font-bold text-gray-800 mb-2">15次</p>
+                        <div class="border-t pt-4 mt-4">
+                            <p class="text-gray-600 text-sm">首次使用：2022年04月23日</p>
+                            <p class="text-gray-600 text-sm">第一次说的人：小黄</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 回忆精选页 -->
     <section id="memories" class="section">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="section-title">甜蜜回忆</h2>
-                <p class="section-subtitle">那些让我们心动的瞬间</p>
+                <h2 class="section-title">我们的照片回忆</h2>
+                <p class="section-subtitle">每一张都珍藏我们共同的美好回忆</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="memory-card">
@@ -611,49 +1049,13 @@
     </section>
 
     <!-- 年度总结页 -->
-    <section id="summary" class="section gradient-bg text-white">
+    <!-- <section id="summary" class="section gradient-bg text-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold mb-4">年度总结</h2>
                 <p class="text-xl mb-8">我们的爱情成长报告</p>
             </div>
             <div class="max-w-4xl mx-auto bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                    <div class="text-center">
-                        <i class="fas fa-heart text-4xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">小黄最常说的话</h3>
-                        <div class="flex flex-wrap justify-center gap-4">
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">猪猪：9674次</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">宝贝</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">我们</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">哈哈</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">贝贝比</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">吃饭</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">小老婆</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">睡觉</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-heart text-4xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">小张最常说的话</h3>
-                        <div class="flex flex-wrap justify-center gap-4">
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">猪猪：9674次</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">宝贝</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">我们</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">哈哈</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">贝贝比</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">吃饭</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">小老婆</span>
-                            <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">睡觉</span>
-                        </div>
-                    </div>
-                    <!-- <div class="text-center">
-                        <i class="fas fa-clock text-4xl mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">最活跃的时间</h3>
-                        <p class="mb-2">我们在<span class="font-bold">晚上10点</span>最活跃</p>
-                        <p>平均每天聊天<span class="font-bold">3小时25分钟</span></p>
-                    </div> -->
-                </div>
                 <div class="text-center">
                     <i class="fas fa-star text-4xl mb-4"></i>
                     <h3 class="text-2xl font-bold mb-4">未来的愿望</h3>
@@ -677,6 +1079,42 @@
                 </div>
             </div>
         </div>
+    </section> -->
+
+    <!-- 方案二：心形动画结尾 -->
+    <section id="heart-ending" class="section gradient-bg text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center">
+                <div class="heart-container mb-8">
+                    <div class="heart-main animate-heartbeat" id="mainHeart">
+                        <i class="fas fa-heart text-8xl"></i>
+                    </div>
+                </div>
+                <h2 class="text-5xl font-bold mb-6">我爱你</h2>
+                <p class="text-2xl mb-8 opacity-90">从现在到永远，我的心只为你跳动</p>
+                
+                <div class="max-w-2xl mx-auto mb-12">
+                    <p class="text-xl italic leading-relaxed">
+                        "在这个世界上，有一个人，只要想到他，你的心就会变得柔软。
+                        有一个人，只要看到他，你的世界就会变得明亮。
+                        这个人，就是你。"
+                    </p>
+                </div>
+
+                <div class="flex justify-center gap-4 mb-12">
+                    <button onclick="createHeartRain()" class="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-lg px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-heart mr-2"></i>点击撒爱心
+                    </button>
+                </div>
+
+                <div class="text-center opacity-75">
+                    <p class="text-lg">小黄 & 小张</p>
+                    <p class="text-sm mt-2">2022.03.05 - Forever</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="heartRainContainer" class="fixed inset-0 pointer-events-none z-20"></div>
     </section>
 
     <!-- 音乐控制 -->
@@ -1003,6 +1441,33 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        function createHeartRain() {
+            const container = document.getElementById('heartRainContainer');
+            const colors = ['#FF6B6B', '#FF8E8E', '#FFB4B4', '#FFD4D4', '#FFE8E8'];
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💓', '💝', '💞'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    heart.style.animationDelay = Math.random() * 0.5 + 's';
+                    
+                    container.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }, i * 100);
+            }
+        }
+
+        document.getElementById('mainHeart').addEventListener('click', createHeartRain);
     </script>
 </body>
 </html>
